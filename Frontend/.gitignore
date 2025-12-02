@@ -1,0 +1,30 @@
+# Large image files (if needed, use compressed versions or external hosting)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.webp
+
+# You can exclude this line if you want to include specific optimized images
+# Just add them with: git add -f filename.jpg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeFlow - Blood Donation Platform</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+        <!-- Slick carousel CSS (required for proper styling) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+        <style>
+            /* Minimal slider styling to ensure images display and fallback works */
+            .slider-container { max-width: 100%; margin: 0 auto; }
+            .slider-home .slide-item img { width: 100%; height: auto; display: block; }
+            /* Fallback: hide non-active slides when vanilla slider used */
+            .slider-home .slide-item { display: none; }
+            .slider-home .slide-item.active { display: block; }
+            /* Show first slide by default immediately */
+            .slider-home .slide-item:first-child { display: block; }
+        </style>
+</head>
+<body>
+    <noscript>
+        <div class="no-js-message">
+            For full functionality of LifeFlow, please enable JavaScript in your browser.
+        </div>
+    </noscript>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo" data-page="home">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                LifeFlow
+            </a>
+            <ul class="nav-links">
+                <li><a href="#" data-page="home">Home</a></li>
+                <li><a href="#" data-page="search">Find Donors</a></li>
+                <li><a href="#" data-page="register">Register</a></li>
+                <li><a href="#" data-page="request">Request Blood</a></li>
+                <li><a href="#" data-page="requests">Requests</a></li>
+                <li><a href="#" data-page="dashboard">Dashboard</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <!-- moving slider (only on home page) -->
+        <div class="slider-container">
+            <div class="slider-home">
+                <div class="slide-item"><img src="adrian-sulyok-sZO8ILzGKcg-unsplash.jpg" alt="Blood Sample"></div>
+                <div class="slide-item"><img src="nguy-n-hi-p-sTTeaN4wwrU-unsplash.jpg" alt="Blood Donation"></div>
+                <div class="slide-item"><img src="anirudh-UiwUtEqROEs-unsplash.jpg" alt="Red Blood Cells"></div>
+                <div class="slide-item"><img src="nguy-n-hi-p-2rNHliX6XHk-unsplash.jpg" alt="Donor"></div>
+                <div class="slide-item"><img src="luann-hunt-X20g2GQsVdA-unsplash.jpg" alt="Donating Blood"></div>
+                <!-- <div class="slide-item"><img src="WhatsApp Image 2025-11-22 at 14.21.56_648f1816.jpg" alt="Hussain Donate Blood"></div> -->
+            </div>
+        </div>
+        <section class="hero">
+            <div class="container">
+                <h1>Save Lives Through Blood Donation</h1>
+                <p>Connect with donors in your area and make a difference today</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-secondary" data-page="search">Find Donors</a>
+                    <a href="#" class="btn btn-secondary" data-page="register">Register to Donate</a>
+                    <a href="#" class="btn btn-secondary" data-page="request">Request Blood</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="container">
+                <h2 class="text-center mb-2">Quick Donor Search</h2>
+                <div class="search-box">
+                    <div class="search-input">
+                        <select id="quickBloodGroup">
+                            <option value="">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="search-input">
+                        <input type="text" id="quickCity" placeholder="Enter city..." list="cities">
+                        <datalist id="cities"></datalist>
+                    </div>
+                    <button class="btn btn-primary" id="quickSearchBtn">Search</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="statDonors">0</span>
+                    <span class="stat-label">Registered Donors</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statLives">0</span>
+                    <span class="stat-label">Lives Saved</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statRequests">0</span>
+                    <span class="stat-label">Active Requests</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statCities">0</span>
+                    <span class="stat-label">Cities Covered</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Search Page -->
+    <div id="searchPage" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Find Blood Donors</h1>
+                <p>Search and connect with donors in your area</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="filterBloodGroup">Blood Group</label>
+                    <select id="filterBloodGroup">
+                        <option value="">All</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterCity">City</label>
+                    <input type="text" id="filterCity" placeholder="Enter city..." list="citiesFilter">
+                    <datalist id="citiesFilter"></datalist>
+                </div>
+                <div class="filter-group">
+                    <label for="filterAvailability">Availability</label>
+                    <select id="filterAvailability">
+                        <option value="">All</option>
+                        <option value="available">Available</option>
+                        <option value="recent">Recently Donated</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="name">Name</option>
+                        <option value="date">Last Donated</option>
+                        <option value="distance">Distance</option>
+                    </select>
+                </div>
+            </div>
+            <div id="donorResults" class="card-grid"></div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Register as a Donor</h1>
+                <p>Join our community of life-savers</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <form id="registerForm" class="form-section">
+                <div class="form-group">
+                    <label for="regName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="regName" required>
+                    <div class="error-message">Please enter your full name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regBloodGroup">Blood Group <span class="required">*</span></label>
+                    <select id="regBloodGroup" required>
+                        <option value="">Select</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <div class="error-message">Please select your blood group</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regDob">Date of Birth <span class="required">*</span></label>
+                    <input type="date" id="regDob" required>
+                    <div class="form-hint">You must be 18-65 years old to donate</div>
+                    <div class="error-message">Please enter a valid date of birth</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regGender">Gender <span class="required">*</span></label>
+                    <select id="regGender" required>
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="error-message">Please select your gender</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPhone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="regPhone" placeholder="+1234567890" required>
+                    <div class="error-message">Please enter a valid phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Email <span class="required">*</span></label>
+                    <input type="email" id="regEmail" placeholder="you@example.com" required>
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regCity">City <span class="required">*</span></label>
+                    <input type="text" id="regCity" placeholder="Enter your city" list="citiesReg" required>
+                    <datalist id="citiesReg"></datalist>
+                    <div class="error-message">Please enter your city</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regLastDonation">Last Donation Date</label>
+                    <input type="date" id="regLastDonation">
+                    <div class="form-hint">Leave blank if you haven't donated before</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPhoto">Profile Photo</label>
+                    <input type="file" id="regPhoto" accept="image/*">
+                    <div class="form-hint">Optional - for display purposes only</div>
+                    <div id="photoPreview" class="mt-1 hidden">
+                        <img id="photoPreviewImg" style="max-width: 150px; border-radius: 8px;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regNotes">Additional Notes</label>
+                    <textarea id="regNotes" rows="3" style="width: 100%; padding: 0.875rem; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; resize: vertical;"></textarea>
+                    <div class="form-hint">Preferred contact time, any medical notes, etc.</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="regConsent" required>
+                        <label for="regConsent">
+                            I consent to sharing my contact information with people requesting blood donations <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="error-message">You must provide consent to register</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register as Donor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Request Blood Page -->
+    <div id="requestPage" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Request Blood</h1>
+                <p>Post a blood request for urgent needs</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <form id="requestForm" class="form-section">
+                <div class="form-group">
+                    <label for="reqBloodGroup">Blood Group Needed <span class="required">*</span></label>
+                    <select id="reqBloodGroup" required>
+                        <option value="">Select</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <div class="error-message">Please select blood group</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqUnits">Units Required <span class="required">*</span></label>
+                    <input type="number" id="reqUnits" min="1" max="10" required>
+                    <div class="error-message">Please enter number of units (1-10)</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqHospital">Hospital/Clinic Name <span class="required">*</span></label>
+                    <input type="text" id="reqHospital" required>
+                    <div class="error-message">Please enter hospital name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqCity">City <span class="required">*</span></label>
+                    <input type="text" id="reqCity" list="citiesReq" required>
+                    <datalist id="citiesReq"></datalist>
+                    <div class="error-message">Please enter city</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqUrgency">Urgency Level <span class="required">*</span></label>
+                    <select id="reqUrgency" required>
+                        <option value="">Select</option>
+                        <option value="high">High - Immediate (within 24 hours)</option>
+                        <option value="medium">Medium - Urgent (within 48 hours)</option>
+                        <option value="low">Low - Routine (within a week)</option>
+                    </select>
+                    <div class="error-message">Please select urgency level</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqContact">User Name <span class="required">*</span></label>
+                    <input type="text" id="reqContact" placeholder="Enter your name" required>
+                    <div class="error-message">Please enter your name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqPhone">User Required Number <span class="required">*</span></label>
+                    <input type="tel" id="reqPhone" placeholder="+92-XXX-XXXXXXX" required>
+                    <div class="error-message">Please enter your phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reqDetails">Additional Details</label>
+                    <textarea id="reqDetails" rows="3" style="width: 100%; padding: 0.875rem; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; resize: vertical;"></textarea>
+                    <div class="form-hint">Patient details, best time to contact, etc.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Requests Page -->
+    <div id="requestsPage" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Blood Requests</h1>
+                <p>Active blood donation requests</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <div class="filters" style="margin-bottom: 2rem;">
+                <div class="filter-group">
+                    <label for="requestFilterBlood">Blood Group</label>
+                    <select id="requestFilterBlood">
+                        <option value="">All</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="requestFilterCity">City</label>
+                    <input type="text" id="requestFilterCity" placeholder="Enter city...">
+                </div>
+                <div class="filter-group">
+                    <label for="requestFilterUrgency">Urgency</label>
+                    <select id="requestFilterUrgency">
+                        <option value="">All</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div id="requestsList"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h1>Dashboard</h1>
+                <p>Platform statistics and insights</p>
+            </div>
+        </div>
+        <div class="container page-content">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Total Donors</h3>
+                    <div class="stat-number" id="dashTotalDonors">0</div>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Active Requests</h3>
+                    <div class="stat-number" id="dashActiveRequests">0</div>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Available Donors</h3>
+                    <div class="stat-number" id="dashAvailable">0</div>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Cities Covered</h3>
+                    <div class="stat-number" id="dashCities">0</div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Donors by Blood Group</h3>
+                <div class="chart" id="bloodGroupChart"></div>
+            </div>
+
+            <div class="dashboard-card mt-2">
+                <h3>Recent Registrations</h3>
+                <div id="recentDonors"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donor Profile Modal -->
+    <div id="donorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalDonorName">Donor Profile</h2>
+                <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+     <!-- Feature 2: Professional Footer -->
+  <footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-col brand">
+      <h3>LifeFlow</h3>
+      <p>Connecting donors &amp; recipients, saving lives with every drop.</p>
+    </div>
+
+    <div class="footer-col contact">
+      <h4>Contact</h4>
+      <p>
+        <span class="icon">📍</span> Sukkur, Pakistan<br>
+        <span class="icon">📞</span> <a href="tel:+923133456095">+92 313 3456095</a><br>
+        <span class="icon">✉️</span> <a href="mailto:info@lifeflow.org">info@lifeflow.org</a>
+      </p>
+    </div>
+
+    <div class="footer-col links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#" data-page="home">Home</a></li>
+        <li><a href="#" data-page="search">Find Donors</a></li>
+        <li><a href="#" data-page="register">Register</a></li>
+        <li><a href="#" data-page="request">Request Blood</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col social">
+      <h4>Follow</h4>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+          <i class="fa fa-facebook-f"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <i class="fa fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 LifeFlow. All rights reserved.</p>
+  </div>
+</footer>
+
+
+     <!-- JS: jQuery & Slick Carousel -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <script>
+      (function(){
+        // Vanilla fallback slider used when jQuery or Slick are not available
+        function initVanillaSlider(selector, interval){
+          var container = document.querySelector(selector);
+          if(!container) return;
+          var slides = Array.prototype.slice.call(container.querySelectorAll('.slide-item'));
+          if(!slides.length) return;
+          var idx = 0;
+          slides.forEach(function(s, i){ s.classList.toggle('active', i === 0); });
+          var timer = setInterval(next, interval || 3200);
+          function next(){
+            slides[idx].classList.remove('active');
+            idx = (idx + 1) % slides.length;
+            slides[idx].classList.add('active');
+          }
+          container.addEventListener('mouseenter', function(){ clearInterval(timer); });
+          container.addEventListener('mouseleave', function(){ timer = setInterval(next, interval || 3200); });
+        }
+
+        function initSlider(){
+          // Only initialize slider if we're on the home page
+          var homePage = document.getElementById('homePage');
+          if(!homePage || !homePage.classList.contains('active')) return;
+
+          if (window.jQuery) {
+            (function($){
+              if (typeof $.fn.slick === 'function') {
+                // Destroy existing slider if it exists
+                if ($('.slider-home').hasClass('slick-initialized')) {
+                  $('.slider-home').slick('unslick');
+                }
+                $('.slider-home').slick({
+                  dots: true,
+                  arrows: true,
+                  infinite: true,
+                  speed: 600,
+                  autoplay: true,
+                  autoplaySpeed: 3200,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  pauseOnHover: true,
+                  adaptiveHeight: true,
+                  responsive: [ { breakpoint: 768, settings: { arrows: false, dots: true } } ]
+                });
+                console.log('Slick initialized on .slider-home (home page only)');
+              } else {
+                console.warn('Slick not loaded; falling back to vanilla slider on home page.');
+                initVanillaSlider('.slider-home', 3200);
+              }
+            })(window.jQuery);
+          } else {
+            console.warn('jQuery not available; using vanilla slider fallback on home page.');
+            initVanillaSlider('.slider-home', 3200);
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', initSlider);
+        // Re-init slider when navigating back to home page
+        if(window.App) {
+          window.App.initSlider = initSlider;
+        }
+      })();
+    </script>    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</body>
+</html>
